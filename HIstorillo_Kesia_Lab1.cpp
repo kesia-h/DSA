@@ -68,6 +68,30 @@ string insertAtTheGivenPosition(int num, int ElementAfter){
         }
     } 
     
+string insertAtSortedArray(int num){
+    if(numElem != maxElem){
+        bubbleSort();
+        int position;
+        for(int i = 0; i < numElem; i++){
+            if(num < myArray[i]){
+                position = i;
+            break;
+            }
+        }
+
+        for(int i = numElem; i>=position; i--){
+            myArray[i+1] = myArray[i];
+        }
+
+        myArray[position] = num;
+        numElem++;
+        return "An element is successfully inserted at a sorted array! \n";
+    }
+
+
+    return "The array is full. Please remove elements before inserting new one. \n";
+}
+
     for(int i = numElem; i>+position; i--){
         myArray[i+1] = myArray[i];
     }
