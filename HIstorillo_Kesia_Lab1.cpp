@@ -24,6 +24,23 @@ void bubbleSort(){
     }
 }
 
+int binarySearch(int num, int lowest, int highest){
+    while(lowest <= highest){
+        int middle = lowest + (highest - lowest / 2);
+
+        if(myArray[middle] == num){
+            return middle;
+        }
+
+        if(myArray[middle] < num){
+            lowest = middle + 1;
+        }else{
+            highest = middle - 1;
+        }
+    }
+    return -1;
+}
+
 void traverseArray(){
     cout << "Showing elements in my array \n";
     for(int i = 0; i< maxElem; i++){
@@ -67,6 +84,19 @@ string insertAtTheGivenPosition(int num, int ElementAfter){
                 break;
         }
     } 
+
+       for(int i = numElem; i>+position; i--){
+        myArray[i+1] = myArray[i];
+    }
+    myArray[position +1]= num;
+    numElem++;
+    return "An element is successfully inserted at the specific location! \n";
+    
+    }
+    
+    
+    return "The array is full. Please remove elements before inserting new one. \n";
+}
     
 string insertAtSortedArray(int num){
     if(numElem != maxElem){
@@ -92,17 +122,43 @@ string insertAtSortedArray(int num){
     return "The array is full. Please remove elements before inserting new one. \n";
 }
 
-    for(int i = numElem; i>+position; i--){
-        myArray[i+1] = myArray[i];
+string deleteFromTheEnd(){
+    if(numElem != 0){
+        numElem--;
+        return "An element has been deleted from the end!";
     }
-    myArray[position +1]= num;
-    numElem++;
-    return "An element is successfully inserted at the specific location! \n";
-    
+    return "The array is underflow! Delete is not possible";
+}
+
+string deleteFromTheBeginning(){
+    if(numElem != 0){
+        for(int i = 0; i<= numElem; i++ ){
+            myArray[i] = myArray[i+1];
+        }
+        numElem--;
+        return "An element has been deleted from the beginning!";
     }
-    
-    
-    return "The array is full. Please remove elements before inserting new one. \n";
+    return "The array is underflow! Delete is not possible";
+}
+
+string deleteFromGivenElement(int element){
+    if(numElem != 0){
+        int index;
+        for(int i = 0; i <= numElem; i++){
+            if(myArray[i] == element){
+                index = i;
+                break;
+            }
+        }
+
+        for(int i = index; i <= numElem; i++){
+            myArray[i] = myArray[i+1];
+        }
+        numElem--;
+        return to_string(element) + " has been deleted!";
+
+    }
+    return "The array is underflow! Delete is possible";
 }
 
 int main(){
@@ -115,7 +171,22 @@ int main(){
     insertAtTheBeginning(256);
     insertAtTheGivenPosition(128, 9);
     insertAtTheBeginning(19);
+
+    insertAtSortedArray(3);
+    insertAtSortedArray(30);
+    insertAtSortedArray(38);
+    insertAtSortedArray(19);
+
+    deleteFromTheBeginning();
+    deleteFromTheBeginning();
+    deleteFromTheEnd();
+    deleteFromTheEnd();
+    deleteFromGivenElement(20);
+    deleteFromGivenElement(38);
+
     traverseArray();
+
+    cout << binarySearch (30, 0, numElem);
     
     return 0;
 }
