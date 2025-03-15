@@ -15,7 +15,7 @@ typedef struct Node{
 Node *createNode(string data){
     Node *newNode = new Node;
     newNode->songName = data;
-    newNode->link = NULL;
+    newNodelink = NULL;
 
     return newNode;
 }
@@ -66,10 +66,28 @@ Node *insertAtTheBeginning(string data, Node *head){
     return head;
 }
 
+string insertAfter(string after, string data, Node *head){
+    Node *temp = new Node; 
+    temp = head;
+
+    while(temp->songName.compare(after) != 0){
+        if(temp == NULL){
+            return "No such song exist, please try again later.";
+        }
+
+        temp = temp->link;
+    }
+    Node *newNode = createNode(data);
+    newNode->link = temp->link;
+    temp->link = newNode;
+
+    return "An new mode has been added after " + after + "\n";
+}
+
 int main(){
     Node *head = createNode("Sanctuary by JOJI");
 
-    head = insertAtTheEnd("Sunday MOrning by Maroon 5", head);
+    head = insertAtTheEnd("Sunday Morning by Maroon 5", head);
     traverse(head);
 
     return 0;
